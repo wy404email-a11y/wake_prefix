@@ -1,0 +1,36 @@
+{
+  "enabled": {
+    "type": "bool",
+    "description": "启用群聊发言节奏控制",
+    "default": true,
+    "hint": "关闭后恢复“每条群消息都回”的行为。"
+  },
+  "reply_probability": {
+    "type": "float",
+    "description": "未被点名时的插话概率",
+    "default": 0.2,
+    "hint": "0 = 只在被点名（或刚聊过）时回复；1 = 所有闲聊都回。建议 0.1~0.3。"
+  },
+  "followup_window_seconds": {
+    "type": "int",
+    "description": "会话窗口（秒）",
+    "default": 45,
+    "hint": "被点名回复后，这段时间内的后续消息都算接着聊，正常回复，不会被判定为插话。"
+  },
+  "cooldown_seconds": {
+    "type": "int",
+    "description": "两次主动插话的最小间隔（秒）",
+    "default": 180,
+    "hint": "只限制“未被点名的主动插话”；被点名和会话窗口内的接话不受限制。"
+  },
+  "address_words": {
+    "type": "list",
+    "description": "被视作叫到机器人的词",
+    "default": [
+      "大肥鱼",
+      "小鲸鱼",
+      "鲸鱼"
+    ],
+    "hint": "消息里出现这些词就当被点名，一定回复（@机器人、引用机器人、斜杠命令本来就算）。"
+  }
+}

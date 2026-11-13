@@ -1,0 +1,14 @@
+name: astrbot_plugin_group_pace
+display_name: 群聊发言节奏
+short_desc: 群里只在被点名时必回，其余按概率和冷却插话，避免逐条刷屏
+desc: 配合 wake_prefix 含空串（群里所有消息都唤醒）使用。被 @、被回复、被叫到名字或发斜杠命令时一定回复；其余消息按概率插话并受冷却限制，判定为不回复时直接取消 LLM 请求，不消耗 token。
+version: 1.0.0
+author: local
+repo: https://github.com/wy404email-a11y/wake_prefix
+tags:
+  - 群聊
+  - 频率控制
+  - 拟人
+support_platforms:
+  - aiocqhttp
+astrbot_version: ">=4.0,<5"
