@@ -3,34 +3,55 @@
     "type": "bool",
     "description": "启用群聊发言节奏控制",
     "default": true,
-    "hint": "关闭后恢复“每条群消息都回”的行为。"
+    "hint": "关闭后不再过滤已被框架唤醒的消息；本插件不主动唤醒。"
   },
   "reply_probability": {
     "type": "float",
     "description": "未被点名时的插话概率",
     "default": 0.2,
-    "hint": "0 = 只在被点名（或刚聊过）时回复；1 = 所有闲聊都回。建议 0.1~0.3。"
+    "hint": "0 = 仅点名及有效接话；1 = 冷却结束后必定插话。与框架主动回复概率叠加。"
   },
   "followup_window_seconds": {
     "type": "int",
-    "description": "会话窗口（秒）",
+    "description": "同一成员的接话窗口（秒）",
     "default": 45,
-    "hint": "被点名回复后，这段时间内的后续消息都算接着聊，正常回复，不会被判定为插话。"
+    "hint": "从成功回复后计算，其他成员不共享；每次成功接话续期，但受轮次和总时长限制。0 = 不开放接话窗口。"
+  },
+  "max_followup_replies": {
+    "type": "int",
+    "description": "每段对话最多接话轮数",
+    "default": 3,
+    "hint": "不含首次点名或随机插话；明确再次点名可重开。待发送的接话请求也占预留名额。0 = 不自动接话。"
+  },
+  "max_conversation_seconds": {
+    "type": "int",
+    "description": "每段对话最大持续时间（秒）",
+    "default": 180,
+    "hint": "从首次成功回复开始，后续接话不会延长此上限；0 = 不开放接话窗口。"
   },
   "cooldown_seconds": {
     "type": "int",
-    "description": "两次主动插话的最小间隔（秒）",
+    "description": "本群随机插话冷却（秒）",
     "default": 180,
-    "hint": "只限制“未被点名的主动插话”；被点名和会话窗口内的接话不受限制。"
+    "hint": "成功发送随机插话后起算；点名和有效接话不受此限制。随机请求处理中暂不创建第二个随机请求。"
+  },
+  "pending_timeout_seconds": {
+    "type": "int",
+    "description": "待处理请求预留超时（秒）",
+    "default": 300,
+    "hint": "模型失败或其他插件取消请求时，最迟在此时间后释放预留。该超时不取消模型请求，建议大于请求超时。"
   },
   "address_words": {
     "type": "list",
-    "description": "被视作叫到机器人的词",
-    "default": [
-      "大肥鱼",
-      "小鲸鱼",
-      "鲸鱼"
-    ],
-    "hint": "消息里出现这些词就当被点名，一定回复（@机器人、引用机器人、斜杠命令本来就算）。"
+    "description": "机器人的称呼",
+    "default": ["大肥鱼", "小鲸鱼", "鲸鱼"],
+    "hint": "默认仅匹配句首称呼，后接空白或标点；@和引用机器人始终识别为点名。"
+  },
+  "address_match_mode": {
+    "type": "string",
+    "description": "称呼匹配模式",
+    "default": "prefix",
+    "options": ["prefix", "contains"],
+    "hint": "prefix = 句首称呼，减少普通名词误触发；contains = 任意位置包含，兼容旧版。"
   }
 }

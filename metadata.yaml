@@ -1,8 +1,8 @@
 name: astrbot_plugin_group_pace
 display_name: 群聊发言节奏
 short_desc: 群里只在被点名时必回，其余按概率和冷却插话，避免逐条刷屏
-desc: 配合 wake_prefix 含空串（群里所有消息都唤醒）使用。被 @、被回复、被叫到名字或发斜杠命令时一定回复；其余消息按概率插话并受冷却限制，判定为不回复时直接取消 LLM 请求，不消耗 token。
-version: 1.0.0
+desc: 在本地聊天模型请求前控制群聊回复。支持点名放行、按成员限定的接话窗口、接话轮数及总时长上限、随机插话和冷却。回复成功发送后开启窗口，支持非流式分段和流式完成计数；不影响私聊。前置图片描述等模型成本不受本插件控制。
+version: 1.1.0
 author: local
 repo: https://github.com/wy404email-a11y/wake_prefix
 tags:
